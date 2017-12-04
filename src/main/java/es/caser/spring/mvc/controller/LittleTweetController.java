@@ -20,7 +20,10 @@ public class LittleTweetController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String spittles(Model model) {
-		model.addAttribute("tweetsList",tweetRepository.findLittleTweets(Long.MAX_VALUE, 20));
+		/**
+		 * infiere el nombre del tipo y la coleccion
+		 */
+		model.addAttribute(tweetRepository.findLittleTweets(Long.MAX_VALUE, 20));
 		return "tweets";
 	}
 }
