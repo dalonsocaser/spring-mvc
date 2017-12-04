@@ -13,4 +13,10 @@ public class HomeControllerTest {
 		MockMvc mockMvc = standaloneSetup(controller).build();
 		mockMvc.perform(get("/")).andExpect(view().name("home"));
 	}
+	@Test
+	public void testHomePageWithTheOtherPath() throws Exception {
+		HomeController controller = new HomeController();
+		MockMvc mockMvc = standaloneSetup(controller).build();
+		mockMvc.perform(get("/homepage")).andExpect(view().name("home"));
+	}
 }
