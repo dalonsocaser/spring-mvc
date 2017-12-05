@@ -1,6 +1,7 @@
 package es.caser.spring.mvc.repository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,11 @@ public class LittleTweetRepositoryImpl implements ILittleTwitterRepository {
 	private List<LittleTweet> tweetList=new ArrayList<>();
 	public List<LittleTweet> findLittleTweets(long max, int count) {		
 		return tweetList;
+	}
+	@Override
+	public LittleTweet findOne(long tweetId) {
+		
+		return new LittleTweet("hi", new Date());
 	}
 
 }

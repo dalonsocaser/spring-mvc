@@ -1,6 +1,8 @@
 package es.caser.spring.mvc.controller;
-
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.hasItems;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,7 +24,7 @@ import es.caser.spring.mvc.repository.ILittleTwitterRepository;
 public class LittleTweetControllerTest {
 
 	@Test
-	public void shouldShowRecentSpittles() throws Exception {		
+	public void shouldShowRecentTweets() throws Exception {		
 		List<LittleTweet> expectedTweets = creatTweetList(20);
 		ILittleTwitterRepository mockRepository = mock(ILittleTwitterRepository.class);
 		when(mockRepository.findLittleTweets(Long.MAX_VALUE, 20)).thenReturn(expectedTweets);
@@ -42,11 +44,34 @@ public class LittleTweetControllerTest {
 		.andExpect(model().attributeExists("littleTweetList"))
 		.andExpect(model().attribute("littleTweetList", hasItems(expectedTweets.toArray())));
 	}
-
+	@Test
+	public void should_ShowRightTweet_whenUsingId() throws Exception {		
+		LittleTweet expectedTweet = createTweet(1l);
+		ILittleTwitterRepository mockRepository = mock(ILittleTwitterRepository.class);
+		when(mockRepository.findOne(1L)).thenReturn(expectedTweet);
+		
+		
+		LittleTweetController controller = new LittleTweetController(mockRepository);		
+		MockMvc mockMvc = standaloneSetup(controller)
+				.setSingleView(
+						new InternalResourceView("/WEB-INF/views/tweet.jsp"))
+				.build();
+		/**
+		 * infiere el nombre del tipo y la coleccion
+		 */
+		mockMvc.perform(get("/tweets/show")
+				.param("tweet_id", "1")
+				).andExpect(view().name("tweet"))
+		.andExpect(model().attributeExists("littleTweet"))
+		.andExpect(model().attribute("littleTweet", hasProperty("message", equalTo("Tweet "+1))));
+	}
+	private LittleTweet createTweet(long l) {		
+		return new LittleTweet("Tweet " + l, new Date());
+	}
 	private List<LittleTweet> creatTweetList(int count) {
 		List<LittleTweet> spittles = new ArrayList<LittleTweet>();
 		for (int i = 0; i < count; i++) {
-			spittles.add(new LittleTweet("Tweet " + i, new Date()));
+			spittles.add(createTweet(i));
 		}
 		return spittles;
 	}
