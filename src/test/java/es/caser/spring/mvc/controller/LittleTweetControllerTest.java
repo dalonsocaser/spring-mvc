@@ -31,14 +31,16 @@ public class LittleTweetControllerTest {
 		LittleTweetController controller = new LittleTweetController(mockRepository);		
 		MockMvc mockMvc = standaloneSetup(controller)
 				.setSingleView(
-						new InternalResourceView("/WEB-INF/views/spittles.jsp"))
+						new InternalResourceView("/WEB-INF/views/tweets.jsp"))
 				.build();
 		/**
 		 * infiere el nombre del tipo y la coleccion
 		 */
-		mockMvc.perform(get("/tweets")).andExpect(view().name("tweets"))
-				.andExpect(model().attributeExists("littleTweetList"))
-				.andExpect(model().attribute("littleTweetList", hasItems(expectedTweets.toArray())));
+		mockMvc.perform(get("/tweets")
+				.param("max", ""+Long.MAX_VALUE)
+				.param("count","20")).andExpect(view().name("tweets"))
+		.andExpect(model().attributeExists("littleTweetList"))
+		.andExpect(model().attribute("littleTweetList", hasItems(expectedTweets.toArray())));
 	}
 
 	private List<LittleTweet> creatTweetList(int count) {

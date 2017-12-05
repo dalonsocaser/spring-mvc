@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("es.caser.spring.mvc.controller")
+@ComponentScan({"es.caser.spring.mvc","es.caser.spring.mvc.repository"})
 public class WebConfig extends WebMvcConfigurerAdapter{
 	@Bean
 	public ViewResolver viewResolver() {

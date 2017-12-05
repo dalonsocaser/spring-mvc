@@ -11,6 +11,10 @@
 		<junit.version>4.12</junit.version>
 		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
 		<maven-war-plugin.version>2.6</maven-war-plugin.version>
+
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+
 	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
@@ -55,7 +59,11 @@
 			<version>2.12.0</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>		
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
