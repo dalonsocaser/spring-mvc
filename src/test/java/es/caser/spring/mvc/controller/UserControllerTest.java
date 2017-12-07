@@ -30,11 +30,8 @@ public class UserControllerTest {
 		
 	}
 	@Test
-	public void should_ReturnRegisterFormView_whenRequestedOk() throws Exception {
-	
+	public void should_ReturnRegisterFormView_whenRequestedOk() throws Exception {	
 		IUserRepository mockRepository = mock(IUserRepository.class);
-		
-
 		UserController controller = new UserController(mockRepository);
 		MockMvc mockMvc = standaloneSetup(controller)
 				.setSingleView(new InternalResourceView("/WEB-INF/views/registerForm.jsp")).build();

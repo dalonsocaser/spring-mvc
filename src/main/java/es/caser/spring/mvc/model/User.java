@@ -1,10 +1,21 @@
 package es.caser.spring.mvc.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class User {
 	private Long id;
+	@NotNull
+	@Size(min=5, max=16)
 	private String name;
+	@NotNull
+	@Size(min=5, max=16)
 	private String surname;
+	@NotNull
+	@Size(min=5, max=16)
 	private String username;
+	@NotNull
+	@Size(min=5, max=16)
 	private String password;
 	public Long getId() {
 		return id;

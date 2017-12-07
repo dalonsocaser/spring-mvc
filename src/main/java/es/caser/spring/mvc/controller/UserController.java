@@ -14,8 +14,6 @@ import es.caser.spring.mvc.repository.IUserRepository;
 @RequestMapping("/users")
 public class UserController {
 	private IUserRepository userRepository;
-
-
 	@Autowired
 	public UserController(IUserRepository userRepository) {
 		this.userRepository = userRepository;
