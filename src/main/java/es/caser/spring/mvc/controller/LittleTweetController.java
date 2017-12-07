@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,13 +25,15 @@ public class LittleTweetController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<LittleTweet> spittles(@RequestParam(value = "max", defaultValue = MAX_VALUE_AS_STRING) long max,
+	public List<LittleTweet> tweets(@RequestParam(value = "max", defaultValue = MAX_VALUE_AS_STRING) long max,
 			@RequestParam("count") int count) {
 		return tweetRepository.findLittleTweets(max, count);
 	}
 
-	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public String showTweet(@RequestParam("tweet_id") long tweetId, Model model) {
+	
+
+	@RequestMapping(value = "/{tweetId}", method = RequestMethod.GET)
+	public String spittle(@PathVariable("tweetId") long tweetId, Model model) {
 		model.addAttribute(tweetRepository.findOne(tweetId));
 		return "tweet";
 	}

@@ -51,19 +51,13 @@ public class LittleTweetControllerTest {
 		when(mockRepository.findOne(1L)).thenReturn(expectedTweet);
 		
 		
-		LittleTweetController controller = new LittleTweetController(mockRepository);		
-		MockMvc mockMvc = standaloneSetup(controller)
-				.setSingleView(
-						new InternalResourceView("/WEB-INF/views/tweet.jsp"))
-				.build();
-		/**
-		 * infiere el nombre del tipo y la coleccion
-		 */
-		mockMvc.perform(get("/tweets/show")
-				.param("tweet_id", "1")
-				).andExpect(view().name("tweet"))
+		LittleTweetController controller = new LittleTweetController(mockRepository);
+		MockMvc mockMvc = standaloneSetup(controller).build();
+		mockMvc.perform(get("/tweets/1"))
+		.andExpect(view().name("tweet"))
 		.andExpect(model().attributeExists("littleTweet"))
-		.andExpect(model().attribute("littleTweet", hasProperty("message", equalTo("Tweet "+1))));
+		.andExpect(model().attribute("littleTweet", expectedTweet));
+		
 	}
 	private LittleTweet createTweet(long l) {		
 		return new LittleTweet("Tweet " + l, new Date());
