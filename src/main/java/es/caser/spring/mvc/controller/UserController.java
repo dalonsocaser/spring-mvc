@@ -1,8 +1,11 @@
 package es.caser.spring.mvc.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,9 +27,14 @@ public class UserController {
 		return "registerForm";
 	}
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String showRegistrationForm(User user) {
-		userRepository.save(user);
-		return "redirect:/users/"+user.getUsername();
+	public String register(@Valid User user,
+			Errors errors) {
+		if (errors.hasErrors()) {
+			return "registerForm";
+		}else{
+			userRepository.save(user);
+			return "redirect:/users/"+user.getUsername();
+		}
 	}
 	@RequestMapping(value="/{username}", method=RequestMethod.GET)
 	public String getUserProfile(@PathVariable String username, Model model) {
