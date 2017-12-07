@@ -20,6 +20,13 @@ public class LittleTweet {
 		this.longitude = longitude;
 		this.latitude = latitude;
 	}
+	public LittleTweet(Long id,String message, Date time, Double longitude, Double latitude) {
+		this.id = id;
+		this.message = message;
+		this.time = time;
+		this.longitude = longitude;
+		this.latitude = latitude;
+	}
 
 	public Double getLatitude() {
 		return latitude;

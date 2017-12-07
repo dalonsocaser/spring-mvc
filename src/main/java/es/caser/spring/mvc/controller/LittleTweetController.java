@@ -30,11 +30,11 @@ public class LittleTweetController {
 		return tweetRepository.findLittleTweets(max, count);
 	}
 
-	
-
 	@RequestMapping(value = "/{tweetId}", method = RequestMethod.GET)
 	public String spittle(@PathVariable("tweetId") long tweetId, Model model) {
 		model.addAttribute(tweetRepository.findOne(tweetId));
 		return "tweet";
 	}
+
+	
 }

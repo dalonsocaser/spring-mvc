@@ -10,9 +10,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Register form</title>
+<title>Tweet detail</title>
 </head>
 <body>
-	
+<h1>Your Profile</h1>
+<c:out value="${user.username}" /><br/>
+<c:out value="${user.name}" />
+<c:out value="${user.username}" />
 </body>
 </html>
